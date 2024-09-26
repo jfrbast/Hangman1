@@ -12,18 +12,12 @@ func affichage() {
 	switch essaisRestants {
 	case 10:
 		fmt.Println(`
-			
-			
 
-			
-			
-			
 			_________
+
 		`)
 	case 9:
 		fmt.Println(`
-			
-			
 
 			|
 			|
@@ -32,7 +26,7 @@ func affichage() {
 		`)
 	case 8:
 		fmt.Println(`
-			
+
 			_________
 			|       
 			|       
@@ -42,6 +36,7 @@ func affichage() {
 		`)
 	case 7:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       
@@ -51,6 +46,7 @@ func affichage() {
 		`)
 	case 6:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -60,6 +56,7 @@ func affichage() {
 		`)
 	case 5:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -69,6 +66,7 @@ func affichage() {
 		`)
 	case 4:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -78,6 +76,7 @@ func affichage() {
 		`)
 	case 3:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -87,6 +86,7 @@ func affichage() {
 		`)
 	case 2:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -96,6 +96,7 @@ func affichage() {
 		`)
 	case 1:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -105,6 +106,7 @@ func affichage() {
 		`)
 	case 0:
 		fmt.Println(`
+
 			_________
 			|       |
 			|       O
@@ -235,20 +237,41 @@ func ChoixMot() {
 	fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
 }
 
+func showMenu() {
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println("")
+	fmt.Println(`
+			======================================
+			 _    _                                          
+			| |  | |                                         
+		 	| |__| | __ _ _ __   __ _ _ __ ___   __ _ _ __    
+			|  __  |/ _` + "`" + ` | '_ \ / _` + "`" + ` | '_ ` + "`" + ` _ \ / _` + "`" + ` | '_ \   
+		 	| |  | | (_| | | | | (_| | | | | | | (_| | | | |  
+		 	|_|  |_|\__,_|_| |_|\__, |_| |_| |_|\__,_|_| |_|  
+					    __/  |
+					    |___/                  
+			======================================
+			1. Tapez 'L' pour deviner une lettre
+			2. Tapez 'M' pour deviner un mot complet
+			======================================
+	`)
+}
+
 func main() {
 	ChoixMot()
-	fmt.Println(motJeu)
 
 	for essaisRestants > 0 {
+		showMenu()
+
 		var choix string
-		fmt.Println("Tapez 'lettre'(ou L) pour proposer une lettre ou 'mot'(ou M) pour proposer un mot entier : ")
+		fmt.Print("Votre choix : ")
 		fmt.Scanln(&choix)
 
 		if choix == "lettre" || choix == "L" || choix == "l" {
-			for {
-				TryLetter()
-			}
-
+			TryLetter()
 		} else if choix == "mot" || choix == "M" || choix == "m" {
 			TryMot()
 		} else {
@@ -261,4 +284,7 @@ func main() {
 		}
 	}
 
+	if essaisRestants == 0 {
+		fmt.Println("Désolé, vous avez perdu. Le mot était :", motJeu)
+	}
 }
