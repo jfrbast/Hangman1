@@ -6,8 +6,114 @@ import (
 	"math/rand"
 	"os"
 	"strings"
-	"time"
 )
+
+func affichage() {
+	switch essaisRestants {
+	case 10:
+		fmt.Println(`
+			
+			
+
+			
+			
+			
+			_________
+		`)
+	case 9:
+		fmt.Println(`
+			
+			
+
+			|
+			|
+			|
+			|_______
+		`)
+	case 8:
+		fmt.Println(`
+			
+			_________
+			|       
+			|       
+			|
+			|
+			|_______
+		`)
+	case 7:
+		fmt.Println(`
+			_________
+			|       |
+			|       
+			|
+			|
+			|_______
+		`)
+	case 6:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|
+			|
+			|_______
+		`)
+	case 5:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|       |
+			|
+			|_______
+		`)
+	case 4:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|      /|
+			|
+			|_______
+		`)
+	case 3:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|      /|\
+			|
+			|_______
+		`)
+	case 2:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|      /|\
+			|      /
+			|_______
+		`)
+	case 1:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|      /|\
+			|      / \
+			|_______
+		`)
+	case 0:
+		fmt.Println(`
+			_________
+			|       |
+			|       O
+			|      /|\
+			|      / \
+			|_______
+			|   Perdu ! Le mot était : ` + motJeu)
+	}
+}
 
 func ToLower(s string) string {
 	result := ""
@@ -53,6 +159,10 @@ func TryLetter() {
 			fmt.Println("Vous avez déjà proposé cette lettre.")
 			return
 		}
+		if input == "Retour" {
+			fmt.Println("Retour.")
+			return
+		}
 	}
 	lettresEssayees = append(lettresEssayees, input)
 
@@ -66,9 +176,11 @@ func TryLetter() {
 
 	if found {
 		fmt.Println("Lettre trouvée !")
+		affichage()
 	} else {
 		essaisRestants--
 		fmt.Println("Lettre incorrecte. Essais restants :", essaisRestants)
+		affichage()
 	}
 
 	fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
@@ -83,10 +195,11 @@ func TryMot() {
 
 	if input == motJeu {
 		fmt.Println("Félicitations ! Vous avez deviné le mot :", motJeu)
-		os.Exit(0) // Fin du jeu
+		os.Exit(0)
 	} else {
 		essaisRestants -= 2
 		fmt.Println("Mauvaise proposition. Essais restants :", essaisRestants)
+		affichage()
 	}
 }
 
@@ -103,7 +216,6 @@ func ChoixMot() {
 	}
 	tableauMot = mots
 
-	rand.Seed(time.Now().UnixNano())
 	motJeu = tableauMot[rand.Intn(len(tableauMot))]
 	motATrouver = make([]string, len(motJeu))
 
@@ -125,15 +237,19 @@ func ChoixMot() {
 
 func main() {
 	ChoixMot()
+	fmt.Println(motJeu)
 
 	for essaisRestants > 0 {
 		var choix string
-		fmt.Println("Tapez 'lettre' pour proposer une lettre ou 'mot' pour proposer un mot entier : ")
+		fmt.Println("Tapez 'lettre'(ou L) pour proposer une lettre ou 'mot'(ou M) pour proposer un mot entier : ")
 		fmt.Scanln(&choix)
 
-		if choix == "lettre" {
-			TryLetter()
-		} else if choix == "mot" {
+		if choix == "lettre" || choix == "L" || choix == "l" {
+			for {
+				TryLetter()
+			}
+
+		} else if choix == "mot" || choix == "M" || choix == "m" {
 			TryMot()
 		} else {
 			fmt.Println("Choix invalide. Réessayez.")
@@ -145,7 +261,4 @@ func main() {
 		}
 	}
 
-	if essaisRestants == 0 {
-		fmt.Println("Vous avez perdu. Le mot était :", motJeu)
-	}
 }
