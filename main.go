@@ -6,9 +6,11 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"time"
 )
 
 func affichage() {
+	time.Sleep(1 * time.Second)
 	switch essaisRestants {
 	case 10:
 		fmt.Println(`
@@ -16,6 +18,7 @@ func affichage() {
 			_________
 
 		`)
+		time.Sleep(1 * time.Second)
 	case 9:
 		fmt.Println(`
 
@@ -24,6 +27,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 8:
 		fmt.Println(`
 
@@ -34,6 +38,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 7:
 		fmt.Println(`
 
@@ -44,6 +49,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 6:
 		fmt.Println(`
 
@@ -54,6 +60,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 5:
 		fmt.Println(`
 
@@ -64,6 +71,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 4:
 		fmt.Println(`
 
@@ -74,6 +82,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 3:
 		fmt.Println(`
 
@@ -84,6 +93,7 @@ func affichage() {
 			|
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 2:
 		fmt.Println(`
 
@@ -94,6 +104,7 @@ func affichage() {
 			|      /
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 1:
 		fmt.Println(`
 
@@ -104,6 +115,7 @@ func affichage() {
 			|      / \
 			|_______
 		`)
+		time.Sleep(1 * time.Second)
 	case 0:
 		fmt.Println(`
 
@@ -138,7 +150,43 @@ func IsAlpha(s string) bool {
 	return true
 }
 
+func difficulty() {
+	var input int
+
+	fmt.Println("Choisissez le niveau de difficulté.")
+	fmt.Println("1: Facile (10 essais + 3 indices)")
+	fmt.Println("2: Moyen (7 essais + 2 indices)")
+	fmt.Println("3: Difficile (5 essais + 1 indice)")
+	for {
+		_, err := fmt.Scanln(&input)
+		if err != nil {
+			fmt.Println("Erreur d'entrée, veuillez réessayer.")
+			continue
+		}
+		switch input {
+		case 1:
+			fmt.Println("Vous avez choisi le niveau Facile.")
+			essaisRestants = 10
+			diff = 1
+			return
+		case 2:
+			fmt.Println("Vous avez choisi le niveau Moyen.")
+			essaisRestants = 8
+			diff = 2
+			return
+		case 3:
+			fmt.Println("Vous avez choisi le niveau Difficile.")
+			essaisRestants = 6
+			diff = 3
+			return
+		default:
+			fmt.Println("Choix invalide, veuillez entrer 1, 2 ou 3.")
+		}
+	}
+}
+
 // Variables globales
+var diff int
 var tableauMot []string
 var motATrouver []string
 var motJeu string
@@ -161,10 +209,7 @@ func TryLetter() {
 			fmt.Println("Vous avez déjà proposé cette lettre.")
 			return
 		}
-		if input == "Retour" {
-			fmt.Println("Retour.")
-			return
-		}
+
 	}
 	lettresEssayees = append(lettresEssayees, input)
 
@@ -184,9 +229,11 @@ func TryLetter() {
 		fmt.Println("Lettre incorrecte. Essais restants :", essaisRestants)
 		affichage()
 	}
-
+	time.Sleep(1 * time.Second)
 	fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
+	time.Sleep(1 * time.Second)
 	fmt.Println("Lettres déjà proposées : ", strings.Join(lettresEssayees, ", "))
+	time.Sleep(1 * time.Second)
 }
 
 func TryMot() {
@@ -221,28 +268,37 @@ func ChoixMot() {
 	motJeu = tableauMot[rand.Intn(len(tableauMot))]
 	motATrouver = make([]string, len(motJeu))
 
-	Lrand1 := rand.Intn(len(motJeu))
-	Lrand2 := rand.Intn(len(motJeu))
-	for Lrand2 == Lrand1 {
+	var Lrand1 int
+	var Lrand2 int
+	var Lrand3 int
+
+	if diff == 2 {
 		Lrand2 = rand.Intn(len(motJeu))
+		for Lrand2 == Lrand1 {
+			Lrand2 = rand.Intn(len(motJeu))
+		}
+	}
+	if diff == 1 {
+		Lrand2 = rand.Intn(len(motJeu))
+		for Lrand2 == Lrand1 {
+			Lrand2 = rand.Intn(len(motJeu))
+		}
+		Lrand3 = rand.Intn(len(motJeu))
+		for Lrand3 == Lrand1 && Lrand3 == Lrand2 {
+			Lrand3 = rand.Intn(len(motJeu))
+		}
 	}
 
 	for i, char := range motJeu {
-		if i == Lrand1 || i == Lrand2 {
+		if i == Lrand1 || i == Lrand2 || i == Lrand3 {
 			motATrouver[i] = string(char)
 		} else {
 			motATrouver[i] = "_"
 		}
 	}
-	fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
 }
 
 func showMenu() {
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("")
-	fmt.Println("")
 	fmt.Println(`
 			======================================
 			 _    _                                          
@@ -261,11 +317,13 @@ func showMenu() {
 }
 
 func main() {
+	difficulty()
 	ChoixMot()
-
+	time.Sleep(2 * time.Second)
 	for essaisRestants > 0 {
 		showMenu()
-
+		fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
+		time.Sleep(1 * time.Second)
 		var choix string
 		fmt.Print("Votre choix : ")
 		fmt.Scanln(&choix)
@@ -274,6 +332,7 @@ func main() {
 			TryLetter()
 		} else if choix == "mot" || choix == "M" || choix == "m" {
 			TryMot()
+
 		} else {
 			fmt.Println("Choix invalide. Réessayez.")
 		}
