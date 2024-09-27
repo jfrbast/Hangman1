@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/gookit/color"
 	"log"
 	"math/rand"
 	"os"
@@ -13,14 +14,14 @@ func affichage() {
 	time.Sleep(1 * time.Second)
 	switch essaisRestants {
 	case 10:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 
 		`)
 		time.Sleep(1 * time.Second)
 	case 9:
-		fmt.Println(`
+		color.Hex("#e295ff").Println(`
 
 			|
 			|
@@ -29,7 +30,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 8:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       
@@ -40,7 +41,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 7:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -51,7 +52,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 6:
-		fmt.Println(`
+		color.Hex("#e295ff").Println(`
 
 			_________
 			|       |
@@ -62,7 +63,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 5:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -73,7 +74,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 4:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -84,7 +85,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 3:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -95,7 +96,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 2:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -106,7 +107,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 1:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -117,7 +118,7 @@ func affichage() {
 		`)
 		time.Sleep(1 * time.Second)
 	case 0:
-		fmt.Println(`
+		color.Hex("#808080").Println(`
 
 			_________
 			|       |
@@ -154,33 +155,33 @@ func difficulty() {
 	var input int
 
 	fmt.Println("Choisissez le niveau de difficulté.")
-	fmt.Println("1: Facile (10 essais + 3 indices)")
-	fmt.Println("2: Moyen (7 essais + 2 indices)")
-	fmt.Println("3: Difficile (5 essais + 1 indice)")
+	color.Hex("#2dc512").Println("1: Facile (10 essais + 3 indices)")
+	color.Hex("#ffe400").Println("2: Moyen (7 essais + 2 indices)")
+	color.Hex("#ff0000").Println("3: Difficile (5 essais + 1 indice)")
 	for {
 		_, err := fmt.Scanln(&input)
 		if err != nil {
-			fmt.Println("Erreur d'entrée, veuillez réessayer.")
+			color.Hex("#ff0000").Println("Erreur d'entrée, veuillez réessayer.")
 			continue
 		}
 		switch input {
 		case 1:
-			fmt.Println("Vous avez choisi le niveau Facile.")
+			color.Hex("#2dc512").Println("Vous avez choisi le niveau Facile.")
 			essaisRestants = 10
 			diff = 1
 			return
 		case 2:
-			fmt.Println("Vous avez choisi le niveau Moyen.")
+			color.Hex("#ffe400").Println("Vous avez choisi le niveau Moyen.")
 			essaisRestants = 8
 			diff = 2
 			return
 		case 3:
-			fmt.Println("Vous avez choisi le niveau Difficile.")
+			color.Hex("#ff0000").Println("Vous avez choisi le niveau Difficile.")
 			essaisRestants = 6
 			diff = 3
 			return
 		default:
-			fmt.Println("Choix invalide, veuillez entrer 1, 2 ou 3.")
+			color.Hex("#ff0000").Println("Choix invalide, veuillez entrer 1, 2 ou 3.")
 		}
 	}
 }
@@ -200,7 +201,7 @@ func TryLetter() {
 	input = ToLower(input)
 
 	if !IsAlpha(input) || len(input) != 1 {
-		fmt.Println("Ceci n'est pas une lettre valide.")
+		color.Hex("#ff0000").Println("Ceci n'est pas une lettre valide.")
 		return
 	}
 
@@ -222,11 +223,11 @@ func TryLetter() {
 	}
 
 	if found {
-		fmt.Println("Lettre trouvée !")
+		color.Hex("#2dc512").Println("Lettre trouvée !")
 		affichage()
 	} else {
 		essaisRestants--
-		fmt.Println("Lettre incorrecte. Essais restants :", essaisRestants)
+		color.Hex("#ff0000").Println("Lettre incorrecte. Essais restants :", essaisRestants)
 		affichage()
 	}
 	time.Sleep(1 * time.Second)
@@ -247,7 +248,7 @@ func TryMot() {
 		os.Exit(0)
 	} else {
 		essaisRestants -= 2
-		fmt.Println("Mauvaise proposition. Essais restants :", essaisRestants)
+		color.Hex("#ff0000").Println("Mauvaise proposition. Essais restants :", essaisRestants)
 		affichage()
 	}
 }
@@ -299,7 +300,7 @@ func ChoixMot() {
 }
 
 func showMenu() {
-	fmt.Println(`
+	color.Hex("#61e1f9").Println(`
 			======================================
 			 _    _                                          
 			| |  | |                                         
@@ -322,7 +323,7 @@ func main() {
 	time.Sleep(2 * time.Second)
 	for essaisRestants > 0 {
 		showMenu()
-		fmt.Println("Mot à deviner : ", strings.Join(motATrouver, " "))
+		color.Hex("#1694d8").Println("Mot à deviner : ", strings.Join(motATrouver, " "))
 		time.Sleep(1 * time.Second)
 		var choix string
 		fmt.Print("Votre choix : ")
@@ -334,7 +335,7 @@ func main() {
 			TryMot()
 
 		} else {
-			fmt.Println("Choix invalide. Réessayez.")
+			color.Hex("ff0000").Println("Choix invalide. Réessayez.")
 		}
 
 		if strings.Join(motATrouver, "") == motJeu {
