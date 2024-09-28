@@ -17,6 +17,7 @@ var motATrouver []string
 var motJeu string
 var lettresEssayees []string
 var essaisRestants = 10
+var nbessais int
 
 func TryLetter() {
 	var input string
@@ -45,7 +46,7 @@ func TryLetter() {
 			found = true
 		}
 	}
-
+	nbessais++
 	if found {
 		color.Hex("#2dc512").Println("Lettre trouvée !")
 
@@ -62,9 +63,9 @@ func TryMot() {
 	fmt.Println("Proposez le mot entier : ")
 	fmt.Scanln(&input)
 	input = ToLower(input)
-
+	nbessais++
 	if input == motJeu {
-		fmt.Println("Félicitations ! Vous avez deviné le mot :", motJeu)
+		fmt.Printf("Félicitations ! Vous avez deviné le mot :%v en %d essais \n", motJeu, nbessais)
 		os.Exit(0)
 	} else {
 		essaisRestants -= 2
@@ -339,7 +340,7 @@ func main() {
 		}
 
 		if strings.Join(motATrouver, "") == motJeu {
-			fmt.Println("Félicitations ! Vous avez trouvé le mot :", motJeu)
+			fmt.Printf("Félicitations ! Vous avez trouvé le mot : %v en %d essais", motJeu, nbessais)
 			break
 		}
 	}
