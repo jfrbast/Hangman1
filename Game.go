@@ -32,7 +32,7 @@ func Game() {
 
 		if strings.Join(motATrouver, "") == motJeu {
 			fmt.Println("  ____                     __   _ \n / ___| __ _  __ _ _ __   /_/  | |\n| |  _ / _` |/ _` | '_ \\ / _ \\ | |\n| |_| | (_| | (_| | | | |  __/ |_|\n \\____|\\__,_|\\__, |_| |_|\\___| (_)\n             |___/                ")
-			color.Hex("PUTBIT").Printf("Félicitations ! Vous avez trouvé le mot : %v en %d essais", motJeu, nbessais)
+			fmt.Printf("Félicitations ! Vous avez trouvé le mot : %v en %d essais", motJeu, nbessais)
 			os.Exit(0)
 		}
 	}
