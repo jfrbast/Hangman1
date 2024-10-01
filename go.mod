@@ -1,4 +1,4 @@
-module Hangman1
+module hang
 
 go 1.23.0
 
