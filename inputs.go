@@ -52,7 +52,8 @@ func TryMot() {
 	input = ToLower(input)
 	nbessais++
 	if input == motJeu {
-		fmt.Printf("Félicitations ! Vous avez deviné le mot :%v en %d essais \n", motJeu, nbessais)
+		fmt.Println("  ____                     __   _ \n / ___| __ _  __ _ _ __   /_/  | |\n| |  _ / _` |/ _` | '_ \\ / _ \\ | |\n| |_| | (_| | (_| | | | |  __/ |_|\n \\____|\\__,_|\\__, |_| |_|\\___| (_)\n             |___/                ")
+		fmt.Printf("Félicitations ! Vous avez deviné le mot : %v en %d essais \n", motJeu, nbessais)
 		os.Exit(0)
 	} else {
 		essaisRestants -= 2
