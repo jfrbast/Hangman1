@@ -27,17 +27,17 @@ func ChoixMot() {
 	var Lrand3 int
 
 	if diff == 2 {
-		Lrand2 = rand.Intn(len(motJeu))
+		Lrand2 = rand.Intn(len(motJeu) - 1)
 		for Lrand2 == Lrand1 {
-			Lrand2 = rand.Intn(len(motJeu))
+			Lrand2 = rand.Intn(len(motJeu) - 1)
 		}
 	}
 	if diff == 1 {
-		Lrand2 = rand.Intn(len(motJeu))
+		Lrand2 = rand.Intn(len(motJeu) - 1)
 		for Lrand2 == Lrand1 {
-			Lrand2 = rand.Intn(len(motJeu))
+			Lrand2 = rand.Intn(len(motJeu) - 1)
 		}
-		Lrand3 = rand.Intn(len(motJeu))
+		Lrand3 = rand.Intn(len(motJeu) - 1)
 		for Lrand3 == Lrand1 && Lrand3 == Lrand2 {
 			Lrand3 = rand.Intn(len(motJeu))
 		}
